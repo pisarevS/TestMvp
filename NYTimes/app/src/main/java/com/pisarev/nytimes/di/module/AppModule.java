@@ -1,5 +1,7 @@
 package com.pisarev.nytimes.di.module;
 
+import android.content.Context;
+
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.pisarev.nytimes.Const;
@@ -21,9 +23,15 @@ import rx.schedulers.Schedulers;
 @Module
 public class AppModule {
 
+    private Context context;
+    public AppModule(Context context) {
+        this.context=context;
+    }
 
-    public AppModule() {
-
+    @Provides
+    @Singleton
+    Context provideContext(){
+        return context;
     }
 
     @Provides

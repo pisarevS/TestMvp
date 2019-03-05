@@ -1,5 +1,7 @@
 package com.pisarev.nytimes.mvp.presenter;
 
+import android.content.Context;
+
 import com.pisarev.nytimes.Const;
 import com.pisarev.nytimes.application.App;
 import com.pisarev.nytimes.mvp.model.model_result.Result;
@@ -7,6 +9,7 @@ import com.pisarev.nytimes.mvp.model.model_result.ResultList;
 import com.pisarev.nytimes.mvp.model.retrofit.Api;
 import com.pisarev.nytimes.mvp.model.retrofit.RetroClient;
 import com.pisarev.nytimes.mvp.View;
+import com.pisarev.nytimes.mvp.model.sqlite.MyDataBase;
 
 import java.util.ArrayList;
 
@@ -22,14 +25,23 @@ public class Presenter implements View.PresenterMvp, Observer<ResultList> {
 
     @Inject
     Api apiService;
+    private Context context;
     private static Subscription[] subscription = new Subscription[Const.SECTION.length];
 
     private View.MainMvp viewMvp;
+    private View.FavoriteMvp favoriteMvp;
     private int numberTab;
+    private MyDataBase dataBase;
+
 
     public Presenter(View.MainMvp viewMvp, int numberTab) {
         this.viewMvp = viewMvp;
         this.numberTab = numberTab;
+    }
+
+    public Presenter(View.FavoriteMvp favoriteMvp,Context context){
+        this.favoriteMvp=favoriteMvp;
+        this.context=context;
     }
 
     @Override
@@ -65,10 +77,23 @@ public class Presenter implements View.PresenterMvp, Observer<ResultList> {
     }
 
     @Override
+    public void onLoadDataBase() {
+        dataBase = new MyDataBase( context );
+        favoriteMvp.getResult( dataBase.getResultList() );
+    }
+
+    @Override
+    public void onSwiped(String value) {
+        dataBase.deleteItemResult(value  );
+    }
+
+    @Override
     public void onDestroy() {
         if (subscription != null && !subscription[numberTab].isUnsubscribed())
             subscription[numberTab].unsubscribe();
     }
+
+
 
     private void subscribe(Observable<ResultList> observable, Observer<ResultList> subscriber) {
         subscription[numberTab] = observable.subscribeOn( Schedulers.io() )

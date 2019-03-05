@@ -8,13 +8,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.pisarev.nytimes.Const;
 import com.pisarev.nytimes.R;
 import com.pisarev.nytimes.mvp.model.sqlite.MyDataBase;
-import com.pisarev.nytimes.activity.DetailedActivity;
+import com.pisarev.nytimes.activity.DetailActivity;
 import com.pisarev.nytimes.mvp.model.model_result.Result;
 import com.squareup.picasso.Picasso;
 
@@ -65,7 +64,7 @@ public class ResultListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             @Override
             public void onClick(View v) {
                 isTouch = true;
-                Intent intent = new Intent( context, DetailedActivity.class )
+                Intent intent = new Intent( context, DetailActivity.class )
                         .putExtra( Const.RESULT, result )
                         .putExtra( Const.POSITION, position );
                 context.startActivity( intent );

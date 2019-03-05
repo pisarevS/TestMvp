@@ -15,7 +15,7 @@ import com.pisarev.nytimes.mvp.model.sqlite.MyDataBase;
 import com.pisarev.nytimes.mvp.model.model_result.Result;
 import com.squareup.picasso.Picasso;
 
-public class DetailedActivity extends AppCompatActivity {
+public class DetailActivity extends AppCompatActivity {
 
     private TextView textTitle, textAbstract;
     private ImageView imageView, favorite;
@@ -58,7 +58,7 @@ public class DetailedActivity extends AppCompatActivity {
                     return true;
                 }
             } );
-            Picasso.with( DetailedActivity.this )
+            Picasso.with( DetailActivity.this )
                     .load( result.getMedia().get( 0 ).getMediaMetadata().get( 2 ).getUrl() )
                     .placeholder( R.drawable.ic_launcher_foreground )
                     .error( R.drawable.ic_launcher_foreground )
@@ -70,4 +70,5 @@ public class DetailedActivity extends AppCompatActivity {
         textTitle.setText( result.getTitle() );
         textAbstract.setText( result.getAbstract() );
     }
+
 }

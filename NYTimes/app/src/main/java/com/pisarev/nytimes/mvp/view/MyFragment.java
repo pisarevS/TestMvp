@@ -25,7 +25,7 @@ public class MyFragment extends Fragment implements View.MainMvp, SwipeRefreshLa
     private boolean[] isLoading = new boolean[Const.SECTION.length];
     private RecyclerView recyclerView;
     private SwipeRefreshLayout swipeRefreshLayout;
-    private Presenter presenter;
+    private View.PresenterMvp presenter;
 
     public MyFragment() {
         for (int i = 0; i < Const.SECTION.length; i++)

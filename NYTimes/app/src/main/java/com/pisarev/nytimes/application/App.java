@@ -24,7 +24,7 @@ public class App extends Application {
 
     AppComponent provideComponent() {
         return component = DaggerAppComponent
-                .builder().appModule( new AppModule() )
+                .builder().appModule( new AppModule(this) )
                 .build();
     }
 

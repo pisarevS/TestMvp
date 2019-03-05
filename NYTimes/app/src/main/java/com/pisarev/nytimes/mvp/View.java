@@ -9,13 +9,19 @@ public interface View {
     interface MainMvp {
         void getResult(ArrayList<Result> resultArrayList);
         void showError(Throwable e);
+
+    }
+
+    interface FavoriteMvp{
+        void getResult(ArrayList<Result> resultArrayList);
     }
 
     interface PresenterMvp {
         void onCreateView();
         void onDestroy();
         void onRefresh();
-
+        void onLoadDataBase();
+        void onSwiped(String value);
 
     }
 }
